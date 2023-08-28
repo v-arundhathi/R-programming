@@ -1,20 +1,22 @@
-# Function to find all prime numbers up to a given limit using Sieve of Eratosthenes
-sieve_of_eratosthenes <- function(limit) {
-  primes <- logical(limit + 1)
-  primes[1:2] <- FALSE
+sieve_of_eratosthenes <- function(n) {
+  primes <- rep(TRUE, n+1)
+  primes[1] <- FALSE
   
-  for (i in 2:sqrt(limit)) {
+  for (i in 2:sqrt(n)) {
     if (primes[i]) {
-      primes[i^2:(limit + 1):i] <- FALSE
+      for (j in i^2:n) {
+        if (j %% i == 0) {
+          primes[j] <- FALSE
+        }
+      }
     }
   }
+  prime<-which(primes)
+  return(prime)
   
-  return(which(primes))
+  
 }
 
-# Specify the upper limit
-upper_limit <- 100
-
-# Find and display all prime numbers up to the upper limit
-prime_numbers <- sieve_of_eratosthenes(upper_limit)
-cat("Prime numbers up to", upper_limit, ":", prime_numbers, "\n")
+max_number<-50
+prime_numbers<-sieve_of_eratosthenes(max_number)
+cat("Prime numbers up to", max_number, ":", prime_numbers, "\n"
