@@ -7,7 +7,8 @@ matrix2 <- matrix(vector2, nrow = 3)
 
 # Create an array of matrices
 matrix_array <- array(c(matrix1, matrix2), dim = c(3, 3, 2))
-
+print(matrix1)
+print(matrix2)
 # Print the second row of the second matrix
 second_row_second_matrix <- matrix_array[2, , 2]
 cat("Second row of the second matrix:", second_row_second_matrix, "\n")
