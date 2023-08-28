@@ -19,4 +19,4 @@ sieve_of_eratosthenes <- function(n) {
 
 max_number<-50
 prime_numbers<-sieve_of_eratosthenes(max_number)
-cat("Prime numbers up to", max_number, ":", prime_numbers, "\n"
+cat("Prime numbers up to", max_number, ":", prime_numbers, "\n")
