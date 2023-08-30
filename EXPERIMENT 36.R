@@ -1,26 +1,23 @@
-handle_missing_values <- function(data, threshold = 0.1){
-  num_rows <- nrow(data)
-  missing_counts <- colSums(is.na(data))
-  for(col in names(data)){
-    missing_count <- missing_counts[col]
-    if(missing_count > 0){
-      if(missing_count/num_rows < threshold){
-        data <- data[complete.cases(data),]
-      } else {
-        mean_val <- mean(data[[col]],na.rm=TRUE)
-        data[[col]][is.na(data[[col]])] <- mean_val
-      }
-    }
-  }
-  return (data)
-}
+# Load required libraries
+library(ggplot2)
 
-df_handled <- handle_missing_values(airquality)
-print(df_handled)
+# Load the ChickWeight dataset
+data(ChickWeight)
 
-# Apply linear regression algorithm using Least Squares method on "Ozone" and "Solar.R"
-model <- lm(Ozone ~ Solar.R, data = airquality)
+# (a) Create Box plot for "weight" grouped by "Diet"
+boxplot_plot <- ggplot(ChickWeight, aes(x = as.factor(Diet), y = weight)) +
+  geom_boxplot() +
+  labs(x = "Diet", y = "Weight", title = "Box Plot of Weight Grouped by Diet")
+print(boxplot_plot)
 
-# Plot scatter plot between Ozone and Solar.R and add regression line created by above model
-plot(airquality$Solar.R, airquality$Ozone)
-abline(model,col="red")
+# (b) Create Histogram for "weight" features belonging to Diet-1 category
+histogram_plot <- ggplot(ChickWeight, aes(x = weight)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(x = "Weight", y = "Frequency", title = "Histogram of Weight for Diet-1")
+print(histogram_plot)
+
+# (c) Create Scatter plot for "weight" vs "Time" grouped by Diet
+scatter_plot <- ggplot(ChickWeight, aes(x = Time, y = weight, color = as.factor(Diet))) +
+  geom_point() +
+  labs(x = "Time", y = "Weight", title = "Scatter Plot of Weight vs Time Grouped by Diet")
+print(scatter_plot)
